@@ -1,0 +1,17 @@
+{
+  "name": "natural-sort",
+  "version": "0.1.0",
+  "description": "orders strings like a human would, file2 before file10",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {}
+}
