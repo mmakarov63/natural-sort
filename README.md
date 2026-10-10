@@ -32,3 +32,10 @@ Lexicographic sort puts `file10` before `file2` because it compares character by
 - **Only leading digits form a numeric token.** A run like `1.5` is split into `1`, `.`, `5`, not parsed as a float. This is deliberate: parsing `1.5` as a float would make `1.5 > 1.10`, which is the exact surprise natural sort exists to fix. If you need semver-aware ordering, use a dedicated semver library.
 - **Case folding is locale-independent**, using the root locale (`en`) via `localeCompare`. `a` and `A` compare equal on the primary key, with case as a tiebreaker, so they stay adjacent. The result is deterministic across platforms but will not match a user's locale-specific collation.
 - **Very long digit runs** (more than 15 digits) exceed `Number.MAX_SAFE_INTEGER`. They are compared by length first and then lexicographically, which produces correct numeric ordering for equal or differing lengths without pretending to normalize the value.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
